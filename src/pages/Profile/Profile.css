@@ -53,6 +53,10 @@
     margin-bottom: 14px;
 }
 
+.promo-card {
+    margin-bottom: 16px;
+}
+
 .profile-buttons {
     display: flex;
     gap: 15px;
@@ -62,6 +66,73 @@
 .profile-buttons button {
     flex: 1;
     min-height: 50px;
+}
+
+.my-promos{
+    margin-top:25px;
+}
+
+.promo-card{
+    background:#232323;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:14px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.section-divider{
+    height:1px;
+    background:rgba(255,255,255,.08);
+    margin:35px 0;
+}
+
+.orders-box h3{
+    margin-bottom:18px;
+}
+
+.order-card{
+    background:#232323;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:14px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.order-left{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.order-left small{
+    color:#aaa;
+    font-size:14px;
+}
+
+.status{
+    padding:8px 14px;
+    border-radius:14px;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.status.Pending{
+    background:#444;
+}
+
+.status.Approved{
+    background:#2e7d32;
+}
+
+.status.Rejected{
+    background:#c62828;
 }
 
 /* PHONE */

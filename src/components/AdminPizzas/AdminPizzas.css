@@ -69,16 +69,176 @@
 
 @media (max-width: 767px) {
 
-    .pizza-form {
-        grid-template-columns: 1fr;
+    .admin-pizzas{
+        background:#151515;
+        border-radius:24px;
+        padding:32px;
+        margin-top:30px;
+        color:#fff;
     }
 
-    .pizza-form button {
-        grid-column: span 1;
+    .admin-pizzas h2{
+        font-size:40px;
+        font-weight:800;
+        margin-bottom:26px;
     }
 
-    .search-input {
-        grid-column: span 1;
+    .pizza-form{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:14px;
+        margin-bottom:26px;
+    }
+
+    .pizza-form input,
+    .pizza-form select{
+        width:100%;
+        min-width:0;
+        height:52px;
+        border:none;
+        outline:none;
+        border-radius:14px;
+        padding:0 16px;
+        background:#242424;
+        color:#fff;
+        font-size:16px;
+    }
+
+    .pizza-form input::placeholder{
+        color:#8f8f8f;
+    }
+
+    .pizza-form button{
+        height:52px;
+        border:none;
+        border-radius:14px;
+        font-weight:700;
+        font-size:17px;
+    }
+
+    .admin-table{
+        width:100%;
+        border-collapse:collapse;
+    }
+
+    .admin-table th{
+        text-align:left;
+        padding:14px 10px;
+        color:#ffbf00;
+        font-size:22px;
+        font-weight:800;
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .admin-table td{
+        padding:16px 10px;
+        border-bottom:1px solid rgba(255,255,255,.06);
+        font-size:17px;
+        vertical-align:middle;
+    }
+
+    .admin-table td:last-child{
+        white-space:nowrap;
+    }
+
+    .sortable{
+        cursor:pointer;
+        user-select:none;
+    }
+
+    .sortable:hover{
+        color:#fff;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width:767px){
+
+        .admin-pizzas{
+            padding:18px 14px;
+            border-radius:18px;
+            overflow:hidden;
+        }
+
+        .admin-pizzas h2{
+            font-size:32px;
+            margin-bottom:18px;
+        }
+
+        .pizza-form{
+            display:flex !important;
+            flex-direction:column !important;
+            gap:10px;
+        }
+
+        .pizza-form input,
+        .pizza-form select,
+        .pizza-form button{
+            width:100% !important;
+            min-width:100% !important;
+            flex:none !important;
+        }
+
+        .admin-table{
+            display:block;
+            width:100%;
+        }
+
+        .admin-table thead{
+            display:none;
+        }
+
+        .admin-table tbody{
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+        }
+
+        .admin-table tr{
+            display:block;
+            background:#1d1d1d;
+            border-radius:16px;
+            padding:14px;
+        }
+
+        .admin-table td{
+            display:block;
+            border:none;
+            padding:4px 0;
+            font-size:15px;
+        }
+
+        .admin-table td:nth-child(1)::before{
+            content:"ID: ";
+            color:#ffbf00;
+            font-weight:700;
+        }
+
+        .admin-table td:nth-child(2)::before{
+            content:"Назва: ";
+            color:#ffbf00;
+            font-weight:700;
+        }
+
+        .admin-table td:nth-child(3)::before{
+            content:"Ціна: ";
+            color:#ffbf00;
+            font-weight:700;
+        }
+
+        .admin-table td:last-child{
+            margin-top:10px;
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            white-space:normal;
+        }
+
+        .admin-table td:last-child button{
+            width:100%;
+            margin:0 !important;
+        }
     }
 
 }

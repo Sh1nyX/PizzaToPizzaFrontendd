@@ -1,0 +1,31 @@
+.categories-page{
+    min-height:100vh;
+    background:#111;
+    color:white;
+    padding:60px 0;
+}
+
+.categories-page h1{
+    font-size:48px;
+    font-weight:800;
+    margin-bottom:35px;
+}
+
+.category-block{
+    margin-bottom:28px;
+}
+
+.category-title{
+    font-size:28px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:20px;
+    padding:12px 0;
+}
+
+.category-title:hover{
+    color:#f5b400;
+}

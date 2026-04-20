@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
+import { getDiscountedPrice } from '../../utils/promo'
 import './PizzaCard.css'
 
 function PizzaCard({ pizza }) {
+    const finalPrice =
+        getDiscountedPrice(
+            pizza.price,
+            pizza.id
+        )
+
     return (
         <Link
             to={`/pizza/${pizza.id}`}
@@ -30,7 +37,12 @@ function PizzaCard({ pizza }) {
                         </span>
 
                         <span className="pizza-price">
-                            ₴{pizza.price}
+                            {finalPrice !== pizza.price && (
+                                <span className="old-price">
+                                    ₴{pizza.price}
+                                </span>
+                            )}
+                        <span>₴{finalPrice}</span>
                         </span>
 
                     </div>

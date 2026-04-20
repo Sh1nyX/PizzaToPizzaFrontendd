@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import './AdminPromo.css'
+import { toast } from 'react-toastify'
 
 function AdminPromo() {
 
@@ -78,7 +79,7 @@ function AdminPromo() {
             }
         )
 
-        alert('Промокод створено')
+        toast.success('Промокод створено')
 
         setForm({
             code: '',

@@ -10,6 +10,8 @@ import Profile from '../pages/Profile/Profile'
 import NotFound from '../pages/NotFound/NotFound'
 import PizzaDetails from '../pages/PizzaDetails/PizzaDetails'
 import Admin from '../pages/Admin/Admin'
+import Checkout from '../pages/Checkout/Checkout'
+import Categories from '../pages/Categories/Categories'
 
 
 
@@ -18,7 +20,7 @@ function AppRouter() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="menu" element={<Menu />} />
+                <Route path="/menu" element={<Menu />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/cart" element={<Cart />} />
@@ -26,6 +28,8 @@ function AppRouter() {
                 <Route path="*" element={<NotFound />} />
                 <Route path="/pizza/:id" element={<PizzaDetails />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/categories" element={<Categories />} />
 
             </Route>
         </Routes>

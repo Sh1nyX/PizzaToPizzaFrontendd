@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Cart.css'
+import { getDiscountedPrice } from '../../utils/promo'
+import { useNavigate } from 'react-router-dom'
 
 function Cart() {
 
     const [items, setItems] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadCart()
@@ -44,7 +47,11 @@ function Cart() {
 
     const total = items.reduce(
         (sum, item) =>
-            sum + item.price * item.quantity,
+            sum +
+            getDiscountedPrice(
+                item.price,
+                item.pizzaId
+            ) * item.quantity,
         0
     )
 
@@ -55,38 +62,74 @@ function Cart() {
 
                 <h1>Кошик</h1>
 
-                {items.map(item => (
+                {items.map(item => {
 
-                    <div
-                        key={item.id}
-                        className="cart-item"
-                    >
+                    const discountedPrice =
+                        getDiscountedPrice(
+                            item.price,
+                            item.pizzaId
+                        )
 
-                        <img src={item.image} />
+                    return (
 
-                        <div>
-                            <h4>{item.name}</h4>
-                            <p>
-                                {item.quantity} x {item.price} грн
-                            </p>
+                        <div
+                            key={item.id}
+                            className="cart-item"
+                        >
+
+                            <img src={item.image} />
+
+                            <div>
+                                <h4>{item.name}</h4>
+
+                                <p className="cart-price-row">
+                                    <span className="qty">
+                                        {item.quantity} x
+                                    </span>
+                                    {discountedPrice !== item.price ? (
+                                        <>
+                                        <span className="old-price">
+                                            {item.price} грн
+                                        </span>
+
+                                            <span className="new-price">
+                                                {discountedPrice} грн
+                                            </span>
+                                        </>
+                                        ) :
+                                        (
+                                        <span className="normal-price">
+                                            {item.price} грн
+                                        </span>
+                                    )}
+
+                                </p>
+                            </div>
+
+                            <button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                    removeItem(item.id)
+                                }
+                            >
+                                ✕
+                            </button>
+
                         </div>
 
-                        <button
-                            className="btn btn-danger"
-                            onClick={() =>
-                                removeItem(item.id)
-                            }
-                        >
-                            ✕
-                        </button>
-
-                    </div>
-
-                ))}
+                    )
+                })}
 
                 <h2 className="cart-total">
                     Разом: {total} грн
                 </h2>
+
+                <button
+                    className="btn btn-warning checkout-btn"
+                    onClick={() => navigate('/checkout')}
+                >
+                    Оформити замовлення
+                </button>
 
             </div>
 

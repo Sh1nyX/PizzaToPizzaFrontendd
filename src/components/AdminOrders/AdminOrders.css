@@ -1,0 +1,26 @@
+.admin-orders{
+    margin-top:35px;
+}
+
+.admin-order-card{
+    background:#1f1f1f;
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:18px;
+}
+
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.order-items{
+    margin:18px 0;
+    color:#aaa;
+}
+
+.order-actions{
+    display:flex;
+    gap:12px;
+}

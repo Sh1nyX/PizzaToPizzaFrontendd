@@ -112,4 +112,28 @@
         text-align: center;
     }
 
+    .mobile-menu{
+        position:absolute;
+        top:70px;
+        left:10px;
+        right:10px;
+        background:#1c1c1c;
+        border-radius:18px;
+        padding:18px;
+        display:flex;
+        flex-direction:column;
+        gap:14px;
+        z-index:999;
+    }
+
+    .mobile-menu a{
+        color:white;
+        text-decoration:none;
+        font-weight:700;
+    }
+
+    .mobile-menu a:hover{
+        color:#f5b400;
+    }
+
 }

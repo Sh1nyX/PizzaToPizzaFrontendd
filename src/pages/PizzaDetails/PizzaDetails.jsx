@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './PizzaDetails.css'
 import PizzaCard from '../../components/PizzaCard/PizzaCard'
+import { getDiscountedPrice } from '../../utils/promo'
+import { AuthContext } from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 function PizzaDetails() {
 
@@ -11,6 +14,7 @@ function PizzaDetails() {
     const [pizza, setPizza] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const [related, setRelated] = useState([])
+    const { isAuth, token } = useContext(AuthContext)
 
     useEffect(() => {
         loadPizza()
@@ -62,36 +66,44 @@ function PizzaDetails() {
         }
     }
 
-    const ratePizza = async (stars) => {
+    const ratePizza = async (value) => {
+
+        if (!isAuth) {
+            toast.error(
+                'Увійдіть щоб оцінювати піци'
+            )
+            return
+        }
+
         try {
-            const token = localStorage
-                .getItem('token')
-                ?.replace(/'/g, '')
-                ?.trim()
-
-
 
             await axios.post(
-                `https://localhost:7266/api/pizzas/${id}/rate`,
-                { stars },
+                `https://localhost:7266/api/pizzas/${pizza.id}/rate`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`
+                    stars: value
+                },
+                {
+                    headers:{
+                        Authorization:
+                            `Bearer ${token}`
                     }
                 }
             )
 
-            loadPizza()
+            toast.success('Оцінку збережено')
 
         } catch (error) {
-            console.log(error)
+
+            console.log(error.response.data)
+
+            toast.error('Помилка оцінки')
         }
     }
 
     const addToCart = async () => {
         const rawToken = localStorage.getItem('token');
         if (!rawToken) {
-            alert('Увійдіть в акаунт');
+            toast.warning('Увійдіть в акаунт!')
             return;
         }
 
@@ -110,14 +122,22 @@ function PizzaDetails() {
                     }
                 }
             );
-            alert('Додано до кошика');
+            toast.success('Додано до кошика')
         } catch (error) {
             console.log(error.response?.data || error);
-            alert('Помилка при додаванні');
+            toast.warning('Помилка при додаванні')
         }
     }
 
+
+
     if (!pizza) return <div className="loading">Loading...</div>
+
+    const finalPrice =
+        getDiscountedPrice(
+            pizza.price,
+            pizza.id
+        )
 
     return (
         <div className="pizza-details-page">
@@ -165,7 +185,7 @@ function PizzaDetails() {
                         </div>
 
                         <div className="pizza-price-big">
-                            ₴{pizza.price}
+                            ₴{finalPrice}
                         </div>
 
                         <div className="buy-block">

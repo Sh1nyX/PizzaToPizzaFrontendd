@@ -27,3 +27,31 @@
     font-size:34px;
     font-weight:800;
 }
+
+.cart-price-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:0;
+}
+
+.qty{
+    color:#fff;
+}
+
+.old-price{
+    text-decoration:line-through;
+    opacity:.5;
+    color:#aaa;
+}
+
+.new-price{
+    color:#ffc107;
+    font-weight:700;
+}
+
+.normal-price{
+    color:#fff;
+    font-weight:600;
+}

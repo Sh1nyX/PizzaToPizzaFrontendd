@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext'
 import AdminPizzas from '../../components/AdminPizzas/AdminPizzas'
 import AdminCategories from '../../components/AdminCategories/AdminCategories'
 import AdminPromo from '../../components/AdminPromo/AdminPromo'
+import AdminOrders from '../../components/AdminOrders/AdminOrders'
 import './Admin.css'
 
 function Admin() {
@@ -64,9 +65,7 @@ function Admin() {
 
                     {tab === 'promo' && <AdminPromo />}
 
-                    {tab === 'orders' && (
-                        <h2>Замовлення скоро тут</h2>
-                    )}
+                    {tab === 'orders' && <AdminOrders />}
 
                 </div>
 

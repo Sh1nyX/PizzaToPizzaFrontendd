@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import './Header.css'
+import { toast } from 'react-toastify'
+
 
 function Header() {
 
-    const { isAuth, user, logout } = useContext(AuthContext)
+    const {
+        isAuth,
+        user,
+        logout,
+        token
+    } = useContext(AuthContext)
+
+    const [menuOpen, setMenuOpen] = useState(false)
 
     return (
         <header className="site-header">
@@ -34,7 +43,21 @@ function Header() {
 
                     <nav className="header-side right-side">
 
-                        <Link to="/cart" className="header-link">
+                        <Link
+                            to="/cart"
+                            className="header-link"
+                            onClick={(e) => {
+
+                                if (!token) {
+                                    e.preventDefault()
+
+                                    toast.error(
+                                        'Для замовлення увійдіть в акаунт'
+                                    )
+                                }
+
+                            }}
+                        >
                             Кошик
                         </Link>
 
@@ -51,17 +74,66 @@ function Header() {
                     </nav>
 
                     <div className="mobile-header">
+                        {menuOpen && (
 
-                        <button className="burger-btn">
+                            <div className="mobile-menu">
+
+                                <Link
+                                    to="/menu"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Меню
+                                </Link>
+
+                                <Link
+                                    to="/categories"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Категорії
+                                </Link>
+
+                                <Link
+                                    to="/cart"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Кошик
+                                </Link>
+
+                                {!isAuth ? (
+
+                                    <Link
+                                        to="/login"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        Увійти
+                                    </Link>
+
+                                ) : (
+
+                                    <Link
+                                        to="/profile"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        Профіль
+                                    </Link>
+
+                                )}
+
+                            </div>
+
+                        )}
+
+                        <button
+                            className="burger-btn"
+                            onClick={() =>
+                                setMenuOpen(!menuOpen)
+                            }
+                        >
                             ☰
                         </button>
 
                         <Link to="/" className="mobile-logo">
                             PizzaToPizza
-                        </Link>
-
-                        <Link to="/cart" className="mobile-cart">
-                            🛒
                         </Link>
 
                     </div>

@@ -3,6 +3,7 @@
     import axios from 'axios'
     import { AuthContext } from '../../context/AuthContext'
     import './Profile.css'
+    import { toast } from 'react-toastify'
 
     function Profile() {
 
@@ -11,12 +12,34 @@
 
         const [promo, setPromo] = useState('')
         const [promos, setPromos] = useState([])
+        const [orders, setOrders] = useState([])
 
         useEffect(() => {
             if (token) {
                 loadPromos()
+                loadOrders()
             }
+
+
         }, [token])
+
+        const loadOrders = async () => {
+
+            const token =
+                localStorage.getItem('token')
+
+            const res = await axios.get(
+                'https://localhost:7266/api/orders/my',
+                {
+                    headers:{
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            )
+
+            setOrders(res.data)
+        }
 
         const exit = () => {
             logout()
@@ -24,7 +47,7 @@
         }
 
         const activatePromo = () => {
-            alert(`Промокод "${promo}" активовано`)
+            toast.success(`Промокод "${promo}" активовано`)
             setPromo('')
         }
 
@@ -52,14 +75,34 @@
             }
         }
 
-        const activateSavedPromo = (promo) => {
+        const activateSavedPromo = async (promo) => {
+
+            const token =
+                localStorage.getItem('token')
+
+            await axios.put(
+                `https://localhost:7266/api/promocodes/${promo.id}/activate`,
+                {},
+                {
+                    headers:{
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            )
 
             localStorage.setItem(
                 'activePromo',
                 JSON.stringify(promo)
             )
 
-            alert(`Промокод ${promo.code} активовано`)
+            setPromos(prev =>
+                prev.filter(x => x.id !== promo.id)
+            )
+
+            toast.success(
+                'Промокод активовано'
+            )
         }
 
         return (
@@ -89,27 +132,6 @@
 
                         </div>
 
-                        <div className="promo-box">
-
-                            <h3>Активувати промокод</h3>
-
-                            <input
-                                value={promo}
-                                onChange={(e) =>
-                                    setPromo(e.target.value)
-                                }
-                                placeholder="Введіть код"
-                            />
-
-                            <button
-                                className="btn btn-warning"
-                                onClick={activatePromo}
-                            >
-                                Активувати
-                            </button>
-
-                        </div>
-
                         <div className="my-promos">
 
                             <h3>Мої промокоди</h3>
@@ -120,11 +142,13 @@
                                 </p>
                             )}
 
-                            {promos.map(promo => (
+                            {promos
+                                .filter(promo => !promo.isUsed)
+                                .map(promo => (
 
-                                <div
-                                    key={promo.id}
-                                    className="promo-card"
+                                    <div
+                                        key={promo.id}
+                                        className="promo-card"
                                 >
 
                                     <div>
@@ -146,6 +170,7 @@
                                     </div>
 
                                     {!promo.isUsed && (
+
                                         <button
                                             className="btn btn-warning btn-sm"
                                             onClick={() =>
@@ -154,13 +179,49 @@
                                         >
                                             Активувати
                                         </button>
+
                                     )}
 
-                                    {promo.isUsed && (
-                                        <span className="used-label">
-                                            Використано
-                                        </span>
-                                    )}
+                                </div>
+
+                            ))}
+
+                        </div>
+
+                        <div className="section-divider"></div>
+
+                        <div className="orders-box">
+
+                            <h3>Мої замовлення</h3>
+
+                            {orders.length === 0 && (
+                                <p className="empty-promos">
+                                    Замовлень поки немає
+                                </p>
+                            )}
+
+                            {orders.map(order => (
+
+                                <div
+                                    key={order.id}
+                                    className="order-card"
+                                >
+
+                                    <div className="order-left">
+
+                                        <strong>
+                                            Замовлення #{order.id}
+                                        </strong>
+
+                                        <small>
+                                            {order.total} грн
+                                        </small>
+
+                                    </div>
+
+                                    <span className={`status ${order.status}`}>
+                                        {order.status}
+                                    </span>
 
                                 </div>
 
@@ -178,10 +239,6 @@
                                     Адмін-панель
                                 </Link>
                             )}
-
-                            <button className="btn btn-outline-light">
-                                Мої замовлення
-                            </button>
 
                             <button
                                 className="btn btn-danger"
