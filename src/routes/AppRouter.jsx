@@ -9,6 +9,9 @@ import Cart from '../pages/Cart/Cart'
 import Profile from '../pages/Profile/Profile'
 import NotFound from '../pages/NotFound/NotFound'
 import PizzaDetails from '../pages/PizzaDetails/PizzaDetails'
+import Admin from '../pages/Admin/Admin'
+
+
 
 function AppRouter() {
     return (
@@ -16,12 +19,14 @@ function AppRouter() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="menu" element={<Menu />} />
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
                 <Route path="/pizza/:id" element={<PizzaDetails />} />
+                <Route path="/admin" element={<Admin />} />
+
             </Route>
         </Routes>
     )

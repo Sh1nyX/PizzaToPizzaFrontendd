@@ -1,0 +1,53 @@
+.pizza-card {
+    background: #1a1a1a;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .25s;
+    height: 100%;
+}
+
+.pizza-card:hover {
+    transform: translateY(-8px);
+}
+
+.pizza-card-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.pizza-card-body {
+    padding: 18px;
+}
+
+.pizza-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.pizza-card-desc {
+    color: #bbb;
+    font-size: 14px;
+    min-height: 48px;
+}
+
+.pizza-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.pizza-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.pizza-rating {
+    color: #ffb703;
+}
+
+.pizza-price {
+    font-size: 26px;
+    font-weight: 700;
+}

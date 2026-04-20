@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
 import './Header.css'
 
 function Header() {
+
+    const { isAuth, user, logout } = useContext(AuthContext)
+
     return (
         <header className="site-header">
 
@@ -33,9 +38,15 @@ function Header() {
                             Кошик
                         </Link>
 
-                        <Link to="/login" className="header-link">
-                            Увійти
-                        </Link>
+                        {!isAuth ? (
+                            <Link to="/login" className="header-link">
+                                Увійти
+                            </Link>
+                        ) : (
+                            <Link to="/profile" className="header-link">
+                                Профіль
+                            </Link>
+                        )}
 
                     </nav>
 
